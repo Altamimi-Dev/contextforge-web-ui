@@ -31,5 +31,49 @@
   "mcpServer.catalog.noneConnected": "No MCP server catalog options are connected.",
   "mcpServer.catalog.disabled": "Server catalog is disabled for this gateway.",
   "mcpServer.catalog.error": "Unable to load server catalog. Try again.",
-  "mcpServer.catalog.retry": "Retry"
+  "mcpServer.catalog.retry": "Retry",
+
+  "mcpServer.oauth2.grantType.label": "Grant type",
+  "mcpServer.oauth2.grantType.placeholder": "Select grant type",
+  "mcpServer.oauth2.grantType.authorizationCode": "Authorization code (user login)",
+  "mcpServer.oauth2.grantType.clientCredentials": "Client credentials (machine to machine)",
+  "mcpServer.oauth2.grantType.password": "Resource owner password (deprecated)",
+  "mcpServer.oauth2.passwordDeprecated": "Password grant is deprecated by OAuth 2.1. Migrate this MCP server to authorization_code or client_credentials.",
+
+  "mcpServer.oauth2.issuerUrl.label": "Issuer URL",
+  "mcpServer.oauth2.issuerUrl.placeholder": "e.g. https://auth.example.com",
+  "mcpServer.oauth2.issuerUrl.hint": "Authorization server's base URL for endpoint discovery and Dynamic Client Registration (DCR)",
+
+  "mcpServer.oauth2.redirectUri.label": "Redirect URI",
+  "mcpServer.oauth2.redirectUri.copy": "Copy to clipboard",
+  "mcpServer.oauth2.redirectUri.hint": "Configure your OAuth app to use this redirect URI.",
+  "mcpServer.oauth2.redirectUri.localWarning": "The server's public URL is not configured. Redirect URIs derived from localhost will not work for external OAuth providers.",
+
+  "mcpServer.oauth2.username.label": "Username",
+  "mcpServer.oauth2.username.placeholder": "e.g. service-account",
+  "mcpServer.oauth2.password.label": "Password",
+
+  "mcpServer.oauth2.clientId.label": "Client ID",
+  "mcpServer.oauth2.clientId.placeholder": "e.g. 8f3a2c1d-4b5e-4f6a-9c8d-1e2f3a4b5c6",
+  "mcpServer.oauth2.clientId.hint": "Not required for servers that support Dynamic Client Registration (DCR)",
+
+  "mcpServer.oauth2.clientSecret.label": "Client Secret",
+  "mcpServer.oauth2.clientSecret.placeholder": "e.g. a1b2c3d4e5f6",
+  "mcpServer.oauth2.clientSecret.hint": "Not required for servers that support Dynamic Client Registration (DCR)",
+
+  "mcpServer.oauth2.tokenUrl.label": "Token URL",
+  "mcpServer.oauth2.tokenUrl.placeholder": "e.g. https://oauth.example.com/token",
+  "mcpServer.oauth2.tokenUrl.hint": "Exchanges authorization codes or credentials for access tokens",
+
+  "mcpServer.oauth2.authorizationUrl.label": "Authorization URL",
+  "mcpServer.oauth2.authorizationUrl.placeholder": "e.g. https://oauth.example.com/authorize",
+  "mcpServer.oauth2.authorizationUrl.hint": "Where users are redirected to log in and grant access",
+
+  "mcpServer.oauth2.scopes.label": "Scopes",
+  "mcpServer.oauth2.scopes.hint": "Space-separated list of OAuth scopes",
+  "mcpServer.oauth2.scopes.placeholder": "e.g. repo read:user...",
+
+  "mcpServer.oauth2.tokenManagement.label": "Token management",
+  "mcpServer.oauth2.tokenManagement.storeTokens": "Store access tokens for reuse",
+  "mcpServer.oauth2.tokenManagement.autoRefresh": "Automatically refresh expired tokens"
 }

@@ -1,6 +1,9 @@
 import { describe, it, expect, vi } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
+import { I18nProvider } from "@/i18n";
 import { OAuth2Auth } from "./OAuth2Auth";
+
+const renderWithI18n = (ui: React.ReactElement) => render(<I18nProvider>{ui}</I18nProvider>);
 
 describe("OAuth2Auth", () => {
   const defaultProps = {
@@ -31,7 +34,7 @@ describe("OAuth2Auth", () => {
   };
 
   it("should render client_credentials fields by default", () => {
-    render(<OAuth2Auth {...defaultProps} />);
+    renderWithI18n(<OAuth2Auth {...defaultProps} />);
 
     expect(screen.getByLabelText(/Grant type/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/Issuer URL/i)).toBeInTheDocument();
@@ -52,7 +55,7 @@ describe("OAuth2Auth", () => {
   });
 
   it("should render authorization_code fields", () => {
-    render(<OAuth2Auth {...defaultProps} grantType="authorization_code" />);
+    renderWithI18n(<OAuth2Auth {...defaultProps} grantType="authorization_code" />);
 
     expect(screen.getByLabelText(/Redirect URI/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/Authorization URL/i)).toBeInTheDocument();
@@ -62,7 +65,7 @@ describe("OAuth2Auth", () => {
   });
 
   it("should render password fields", () => {
-    render(<OAuth2Auth {...defaultProps} grantType="password" />);
+    renderWithI18n(<OAuth2Auth {...defaultProps} grantType="password" />);
 
     expect(screen.getByLabelText(/Username/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/Password/i)).toBeInTheDocument();
@@ -72,7 +75,7 @@ describe("OAuth2Auth", () => {
   });
 
   it("should display errors for username and password in password grant", () => {
-    render(
+    renderWithI18n(
       <OAuth2Auth
         {...defaultProps}
         grantType="password"
@@ -91,7 +94,7 @@ describe("OAuth2Auth", () => {
     const onTokenUrlChange = vi.fn();
     const onScopesChange = vi.fn();
 
-    render(
+    renderWithI18n(
       <OAuth2Auth
         {...defaultProps}
         onIssuerUrlChange={onIssuerUrlChange}
@@ -128,7 +131,7 @@ describe("OAuth2Auth", () => {
     const onUsernameChange = vi.fn();
     const onPasswordChange = vi.fn();
 
-    render(
+    renderWithI18n(
       <OAuth2Auth
         {...defaultProps}
         grantType="password"
@@ -144,23 +147,24 @@ describe("OAuth2Auth", () => {
     expect(onPasswordChange).toHaveBeenCalledWith("test-pass");
   });
 
-  it("should trigger callbacks for authorization_code fields", () => {
-    const onRedirectUriChange = vi.fn();
+  it("shows a read-only derived redirect URI, lifts it into form state, and triggers the authorization URL callback", () => {
     const onAuthorizationUrlChange = vi.fn();
+    const onRedirectUriChange = vi.fn();
 
-    render(
+    renderWithI18n(
       <OAuth2Auth
         {...defaultProps}
         grantType="authorization_code"
-        onRedirectUriChange={onRedirectUriChange}
         onAuthorizationUrlChange={onAuthorizationUrlChange}
+        onRedirectUriChange={onRedirectUriChange}
       />,
     );
 
-    fireEvent.change(screen.getByLabelText(/Redirect URI/i), {
-      target: { value: "https://redirect.com" },
-    });
-    expect(onRedirectUriChange).toHaveBeenCalledWith("https://redirect.com");
+    const redirect = screen.getByLabelText(/Redirect URI/i);
+    expect(redirect).toHaveAttribute("readonly");
+    expect(redirect).toHaveValue(`${window.location.origin}/oauth/callback`);
+    expect(screen.getByRole("button", { name: "Copy to clipboard" })).toBeInTheDocument();
+    expect(onRedirectUriChange).toHaveBeenCalledWith(`${window.location.origin}/oauth/callback`);
 
     fireEvent.change(screen.getByLabelText(/Authorization URL/i), {
       target: { value: "https://auth.com/authorize" },
@@ -168,11 +172,57 @@ describe("OAuth2Auth", () => {
     expect(onAuthorizationUrlChange).toHaveBeenCalledWith("https://auth.com/authorize");
   });
 
+  it("displays a stored redirect URI verbatim without overwriting it", () => {
+    const onRedirectUriChange = vi.fn();
+
+    renderWithI18n(
+      <OAuth2Auth
+        {...defaultProps}
+        grantType="authorization_code"
+        redirectUri="https://public.example.com/oauth/callback"
+        onRedirectUriChange={onRedirectUriChange}
+      />,
+    );
+
+    expect(screen.getByLabelText(/Redirect URI/i)).toHaveValue(
+      "https://public.example.com/oauth/callback",
+    );
+    expect(onRedirectUriChange).not.toHaveBeenCalled();
+  });
+
+  it("does not set a redirect URI for non-authorization_code grants", () => {
+    const onRedirectUriChange = vi.fn();
+
+    renderWithI18n(
+      <OAuth2Auth
+        {...defaultProps}
+        grantType="client_credentials"
+        onRedirectUriChange={onRedirectUriChange}
+      />,
+    );
+
+    expect(onRedirectUriChange).not.toHaveBeenCalled();
+  });
+
+  it("only offers the password grant option when already selected (legacy)", () => {
+    const { rerender } = renderWithI18n(
+      <OAuth2Auth {...defaultProps} grantType="client_credentials" />,
+    );
+    expect(screen.queryByText(/Password grant is deprecated/i)).not.toBeInTheDocument();
+
+    rerender(
+      <I18nProvider>
+        <OAuth2Auth {...defaultProps} grantType="password" />
+      </I18nProvider>,
+    );
+    expect(screen.getByText(/Password grant is deprecated/i)).toBeInTheDocument();
+  });
+
   it("should trigger checkbox callback functions", () => {
     const onStoreTokensChange = vi.fn();
     const onAutoRefreshChange = vi.fn();
 
-    render(
+    renderWithI18n(
       <OAuth2Auth
         {...defaultProps}
         onStoreTokensChange={onStoreTokensChange}

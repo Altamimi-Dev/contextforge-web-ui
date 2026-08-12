@@ -31,5 +31,49 @@
   "mcpServer.catalog.noneConnected": "Ninguna opción del catálogo de servidores MCP está conectada.",
   "mcpServer.catalog.disabled": "El catálogo de servidores está deshabilitado para esta puerta de enlace.",
   "mcpServer.catalog.error": "No se pudo cargar el catálogo de servidores. Inténtalo de nuevo.",
-  "mcpServer.catalog.retry": "Reintentar"
+  "mcpServer.catalog.retry": "Reintentar",
+
+  "mcpServer.oauth2.grantType.label": "Tipo de concesión",
+  "mcpServer.oauth2.grantType.placeholder": "Seleccionar tipo de concesión",
+  "mcpServer.oauth2.grantType.authorizationCode": "Código de autorización (inicio de sesión de usuario)",
+  "mcpServer.oauth2.grantType.clientCredentials": "Credenciales de cliente (máquina a máquina)",
+  "mcpServer.oauth2.grantType.password": "Contraseña del propietario del recurso (obsoleto)",
+  "mcpServer.oauth2.passwordDeprecated": "La concesión por contraseña está obsoleta en OAuth 2.1. Migre este servidor MCP a authorization_code o client_credentials.",
+
+  "mcpServer.oauth2.issuerUrl.label": "URL del emisor",
+  "mcpServer.oauth2.issuerUrl.placeholder": "p. ej. https://auth.example.com",
+  "mcpServer.oauth2.issuerUrl.hint": "URL base del servidor de autorización para el descubrimiento de endpoints y el Registro Dinámico de Clientes (DCR)",
+
+  "mcpServer.oauth2.redirectUri.label": "URI de redirección",
+  "mcpServer.oauth2.redirectUri.copy": "Copiar al portapapeles",
+  "mcpServer.oauth2.redirectUri.hint": "Configure su aplicación OAuth para usar esta URI de redirección.",
+  "mcpServer.oauth2.redirectUri.localWarning": "La URL pública del servidor no está configurada. Las URI de redirección derivadas de localhost no funcionarán con proveedores OAuth externos.",
+
+  "mcpServer.oauth2.username.label": "Nombre de usuario",
+  "mcpServer.oauth2.username.placeholder": "p. ej. service-account",
+  "mcpServer.oauth2.password.label": "Contraseña",
+
+  "mcpServer.oauth2.clientId.label": "ID de cliente",
+  "mcpServer.oauth2.clientId.placeholder": "p. ej. 8f3a2c1d-4b5e-4f6a-9c8d-1e2f3a4b5c6",
+  "mcpServer.oauth2.clientId.hint": "No es necesario para servidores que admiten el Registro Dinámico de Clientes (DCR)",
+
+  "mcpServer.oauth2.clientSecret.label": "Secreto de cliente",
+  "mcpServer.oauth2.clientSecret.placeholder": "p. ej. a1b2c3d4e5f6",
+  "mcpServer.oauth2.clientSecret.hint": "No es necesario para servidores que admiten el Registro Dinámico de Clientes (DCR)",
+
+  "mcpServer.oauth2.tokenUrl.label": "URL del token",
+  "mcpServer.oauth2.tokenUrl.placeholder": "p. ej. https://oauth.example.com/token",
+  "mcpServer.oauth2.tokenUrl.hint": "Intercambia códigos de autorización o credenciales por tokens de acceso",
+
+  "mcpServer.oauth2.authorizationUrl.label": "URL de autorización",
+  "mcpServer.oauth2.authorizationUrl.placeholder": "p. ej. https://oauth.example.com/authorize",
+  "mcpServer.oauth2.authorizationUrl.hint": "Donde se redirige a los usuarios para iniciar sesión y otorgar acceso",
+
+  "mcpServer.oauth2.scopes.label": "Alcances",
+  "mcpServer.oauth2.scopes.hint": "Lista de alcances OAuth separados por espacios",
+  "mcpServer.oauth2.scopes.placeholder": "p. ej. repo read:user...",
+
+  "mcpServer.oauth2.tokenManagement.label": "Gestión de tokens",
+  "mcpServer.oauth2.tokenManagement.storeTokens": "Almacenar tokens de acceso para reutilización",
+  "mcpServer.oauth2.tokenManagement.autoRefresh": "Actualizar automáticamente los tokens caducados"
 }
