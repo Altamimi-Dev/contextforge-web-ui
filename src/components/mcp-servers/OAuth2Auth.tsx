@@ -322,7 +322,9 @@ export function OAuth2Auth({
             type="text"
             value={authorizationUrl}
             onChange={(e) => onAuthorizationUrlChange(e.target.value)}
-            placeholder={intl.formatMessage({ id: "mcpServer.oauth2.authorizationUrl.placeholder" })}
+            placeholder={intl.formatMessage({
+              id: "mcpServer.oauth2.authorizationUrl.placeholder",
+            })}
             className="rounded-md border-neutral-300 px-4 text-sm text-neutral-900 shadow-none focus-visible:ring-1 focus-visible:ring-ring focus-visible:ring-offset-0 placeholder:text-neutral-400 dark:border-neutral-700 dark:text-neutral-100 dark:placeholder:text-neutral-500"
           />
           <p className="text-xs text-neutral-600 dark:text-neutral-500">
